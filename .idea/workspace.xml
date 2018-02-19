@@ -2,11 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3aad06c-fe99-4d30-9628-9749712b084f" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.gitingnore" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/digimart-API.iml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/markdown-navigator/profiles_settings.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change beforePath="" afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" />
       <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/action_provision" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/action_set_name" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/creator_uid" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/id" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/index_uuid" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/private_key" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/synced_folders" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.vagrant/machines/default/virtualbox/vagrant_cwd" />
       <change beforePath="" afterPath="$PROJECT_DIR$/Infrastructure/db.go" />
       <change beforePath="" afterPath="$PROJECT_DIR$/Infrastructure/entity.go" />
       <change beforePath="" afterPath="$PROJECT_DIR$/Infrastructure/instruments.sql" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/Vagrantfile" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/digimart.go" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,18 +44,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="digimart.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/digimart.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="6" column="1" lean-forward="false" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
-              <folding>
-                <element signature="e#14#47#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="entity.go" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Infrastructure/entity.go">
           <provider selected="true" editor-type-id="text-editor">
@@ -53,24 +56,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="instruments.sql" pinned="false" current-in-tab="true">
+      <file leaf-file-name="instruments.sql" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Infrastructure/instruments.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="2" lean-forward="true" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
+            <state relative-caret-position="135">
+              <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="db.go" pinned="false" current-in-tab="false">
+      <file leaf-file-name="db.go" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Infrastructure/db.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
+            <state relative-caret-position="225">
+              <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
               <folding>
                 <element signature="e#24#45#0" expanded="true" />
-                <marker date="1519054272000" expanded="true" signature="204:229" ph="INSERT INTO instruments... " />
+                <marker date="1519060211000" expanded="true" signature="215:250" ph="INSERT INTO instruments... " />
+                <marker date="1519060211000" expanded="true" signature="215:263" ph="INSERT INTO instruments... " />
               </folding>
             </state>
           </provider>
@@ -95,8 +99,8 @@
         <option value="$PROJECT_DIR$/Infrastructure/Entity.go" />
         <option value="$PROJECT_DIR$/digimart.go" />
         <option value="$PROJECT_DIR$/Infrastructure/entity.go" />
-        <option value="$PROJECT_DIR$/Infrastructure/db.go" />
         <option value="$PROJECT_DIR$/Infrastructure/instruments.sql" />
+        <option value="$PROJECT_DIR$/Infrastructure/db.go" />
       </list>
     </option>
   </component>
@@ -185,7 +189,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32904884" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -218,14 +222,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Infrastructure/db.go">
+    <entry file="file://$PROJECT_DIR$/Infrastructure/instruments.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="14" lean-forward="false" selection-start-line="0" selection-start-column="14" selection-end-line="0" selection-end-column="14" />
-          <folding>
-            <element signature="e#24#45#0" expanded="true" />
-            <marker date="1519054272000" expanded="true" signature="204:229" ph="INSERT INTO instruments... " />
-          </folding>
+        <state relative-caret-position="135">
+          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -239,11 +240,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Infrastructure/instruments.sql">
+    <entry file="file://$PROJECT_DIR$/Infrastructure/db.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="2" lean-forward="true" selection-start-line="8" selection-start-column="2" selection-end-line="8" selection-end-column="2" />
-          <folding />
+        <state relative-caret-position="225">
+          <caret line="15" column="19" lean-forward="true" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+          <folding>
+            <element signature="e#24#45#0" expanded="true" />
+            <marker date="1519060211000" expanded="true" signature="215:250" ph="INSERT INTO instruments... " />
+            <marker date="1519060211000" expanded="true" signature="215:263" ph="INSERT INTO instruments... " />
+          </folding>
         </state>
       </provider>
     </entry>
