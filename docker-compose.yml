@@ -1,28 +1,32 @@
-api:
-  build: .
-  expose:
-    - "3000"
-  link:
-    - mysql:db
+version: '3'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile_app
+    expose:
+      - "3000"
+    links:
+      - mysql:db
 
-nginx:
-  image: nginx:1.13.8
-  ports:
-    - "80:80"
-  copy:
-    - nginx.conf /etc/nginx
-  environment:
-    - NGINX_HOST=localhost
-    - NGINX_PORT=80
-  link:
-    - api:app
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile_nginx
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=localhost
+      - NGINX_PORT=80
+    links:
+      - api:app
 
-mysql:
-  image: mysql:5.7
-  environment:
-    MYSQL_ROOT_PASSWORD: mysql
-    MYSQL_DATABASE: digimart
-  copy:
-    - infrastructure/instruments.sql /docker-entrypoint-initdb.d/prepare.sql
-  expose:
-    - "3306"
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql
+      MYSQL_DATABASE: digimart
+    volumes:
+      - ./infrastructure/:/docker-entrypoint-initdb.d
+    expose:
+      - "3306"
