@@ -2,9 +2,10 @@ package Infrastructure
 
 import (
 	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 )
 
-func TXHandler(tx *sql.Tx, f func(tx *sql.Tx) error) error {
+func txHandler(tx *sql.Tx, f func(tx *sql.Tx) error) error {
 	var err error
 	err = f(tx)
 	defer func() {
@@ -17,21 +18,10 @@ func TXHandler(tx *sql.Tx, f func(tx *sql.Tx) error) error {
 	return err
 }
 
-func (inst *Instrument) Insert(db sql.DB) error {
-	tx, err := db.Begin()
+func ConnectDB() (*sql.DB, error) {
+	db, err := sql.Open("mysql", "root:mysql@tcp(db:3306)/digimart")
 	if err != nil {
-		return err
+		return nil, err
 	}
-	f := func(tx *sql.Tx) error {
-		_, err := tx.Exec("INSERT INTO instruments(`name`,`category`,`price`,`condition`,`status`,`url`,`register_date`) VALUES (?,?,?,?,?,?,?)", inst.Name, inst.Category, inst.Price, inst.Condition, inst.Status, inst.URL, inst.RegisterDate)
-		if err != nil {
-			return err
-		}
-		return nil
-	}
-	err = TXHandler(tx, f)
-	if err != nil {
-		return err
-	}
-	return nil
+	return db, nil
 }
