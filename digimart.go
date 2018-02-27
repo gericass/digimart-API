@@ -30,4 +30,6 @@ func main() {
 	e.GET("/user/subscribe", handler.GetSubscribeInstrumentsHandler)
 	e.POST("/user/subscribe", handler.SubscribeInstrumentHandler)
 	e.DELETE("/user/unsubscribe", handler.UnSubscribeInstrumentHandler)
+
+	e.Start(":8000")
 }

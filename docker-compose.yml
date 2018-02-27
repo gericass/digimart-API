@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile_app
-    command: 'go run digimart.go'
+    command: 'go run /go/src/app/digimart.go'
     expose:
       - "3000"
     links:
@@ -27,7 +27,5 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: mysql
       MYSQL_DATABASE: digimart
-    volumes:
-      - ./infrastructure:/docker-entrypoint-initdb.d
     expose:
       - "3306"
