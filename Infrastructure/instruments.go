@@ -1,6 +1,21 @@
 package Infrastructure
 
-import "database/sql"
+import (
+	"database/sql"
+	"time"
+)
+
+// Instrument : Entity
+type Instrument struct {
+	ID           int64
+	Category     int
+	Name         string
+	Price        int
+	Condition    string
+	Status       string
+	URL          string
+	RegisterDate time.Time
+}
 
 func (inst *Instrument) Insert(db sql.DB) error {
 	tx, err := db.Begin()
