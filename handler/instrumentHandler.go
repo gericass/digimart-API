@@ -7,3 +7,7 @@ import (
 func SearchInstrumentsHandler(c echo.Context) error {
 	return nil
 }
+
+func NewArrivalHandler(c echo.Context) error {
+	return nil
+}
