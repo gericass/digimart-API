@@ -1,3 +1,4 @@
+-- +migrate Up
 CREATE TABLE instruments (
   `id`            BIGINT UNSIGNED            AUTO_INCREMENT PRIMARY KEY,
   `name`          VARCHAR(256)      NOT NULL,
@@ -26,3 +27,8 @@ CREATE TABLE subscribes (
   instrument_is BIGINT UNSIGNED NOT NULL,
   created_at    TIMESTAMP       NOT NULL DEFAULT NOW()
 );
+
+-- +migrate Down
+DROP TABLE instruments;
+DROP TABLE users;
+DROP TABLE subscribes;

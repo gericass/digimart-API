@@ -1,4 +1,4 @@
-package Infrastructure
+package infrastructure
 
 // User : Entity
 type User struct {

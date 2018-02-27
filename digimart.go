@@ -3,12 +3,12 @@ package main
 import (
 	"github.com/labstack/echo"
 	"github.com/gericass/digimart-API/handler"
-	"github.com/gericass/digimart-API/Infrastructure"
+	"github.com/gericass/digimart-API/infrastructure"
 )
 
 func dbMiddleware(h echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		db, err := Infrastructure.ConnectDB()
+		db, err := infrastructure.ConnectDB()
 		if err != nil {
 			return err
 		}
