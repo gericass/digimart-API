@@ -1,4 +1,4 @@
 development:
   dialect: mysql
-  datasource: root:mysql@tcp(db:3306)/digimart?parseTime=true
-  dir: infrastructure
+  datasource: root:mysql@tcp(127.0.0.1:13306)/digimart?parseTime=true
+  dir: migrates

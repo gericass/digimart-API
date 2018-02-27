@@ -6,3 +6,9 @@ rm:
 
 rmi:
 	docker rmi $(docker images -q)
+
+migrate/up:
+	sql-migrate up
+
+migrate/down:
+	sql-migrate down
