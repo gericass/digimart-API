@@ -2,11 +2,12 @@
 CREATE TABLE instruments (
   `id`            BIGINT UNSIGNED       AUTO_INCREMENT PRIMARY KEY,
   `name`          VARCHAR(256) NOT NULL,
-  `category`      VARCHAR(64)  NOT NULL,
+  `category`      VARCHAR(64),
   `price`         INT          NOT NULL,
   `condition`     VARCHAR(64)  NOT NULL,
   `status`        BOOL         NOT NULL,
   `url`           TEXT         NOT NULL,
+  `image`         TEXT         NOT NULL,
   `register_date` DATETIME     NOT NULL,
   `created_at`    TIMESTAMP    NOT NULL DEFAULT NOW()
 );
