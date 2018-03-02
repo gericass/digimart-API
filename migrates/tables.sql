@@ -8,6 +8,7 @@ CREATE TABLE instruments (
   `status`        BOOL         NOT NULL,
   `url`           TEXT         NOT NULL,
   `image`         TEXT         NOT NULL,
+  `description`   TEXT,
   `register_date` DATETIME     NOT NULL,
   `created_at`    TIMESTAMP    NOT NULL DEFAULT NOW()
 );
