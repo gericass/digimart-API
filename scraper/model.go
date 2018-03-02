@@ -5,6 +5,7 @@ import "time"
 type Instrument struct {
 	Category     string
 	Name         string
+	Description  string
 	Price        int
 	Condition    string
 	Status       string
