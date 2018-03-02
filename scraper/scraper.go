@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func scanInstrument(s *goquery.Selection) *Instrument {
+func scanNewInstrument(s *goquery.Selection) *Instrument {
 	inst := &Instrument{}
 	inst.Status = sell
 	img, _ := s.Find("div.pic").Children().Children().First().Attr("src")
@@ -36,7 +36,7 @@ func NewArrival() ([]*Instrument, error) {
 	var insts = make([]*Instrument, 0)
 	doc.Find("div.NewProductBlock").Each(func(_ int, s *goquery.Selection) {
 		s.Find("li.ProductBox").Each(func(_ int, s *goquery.Selection) {
-			insts = append(insts, scanInstrument(s))
+			insts = append(insts, scanNewInstrument(s))
 		})
 	})
 	return insts, nil
