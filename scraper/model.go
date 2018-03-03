@@ -13,3 +13,7 @@ type Instrument struct {
 	Image        string    `json:"image"`
 	RegisterDate time.Time `json:"registerDate"`
 }
+
+type NewArrivalInstrument struct {
+	Instrument
+}
