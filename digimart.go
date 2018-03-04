@@ -4,6 +4,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/gericass/digimart-API/handler"
 	"github.com/gericass/digimart-API/infrastructure"
+	"github.com/labstack/echo/middleware"
 )
 
 func dbMiddleware(h echo.HandlerFunc) echo.HandlerFunc {
@@ -18,13 +19,10 @@ func dbMiddleware(h echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
-func testHandler(c echo.Context) error {
-	return c.String(200,"OK")
-}
-
 func main() {
 	e := echo.New()
 	e.Use(dbMiddleware)
+	e.Use(middleware.Logger())
 
 	e.GET("/", handler.NewArrivalHandler)
 	e.GET("/search", handler.SearchInstrumentsHandler)
@@ -34,8 +32,6 @@ func main() {
 	e.GET("/user/subscribe", handler.GetSubscribeInstrumentsHandler)
 	e.POST("/user/subscribe", handler.SubscribeInstrumentHandler)
 	e.DELETE("/user/unsubscribe", handler.UnSubscribeInstrumentHandler)
-
-	e.GET("/test",testHandler)
 
 	e.Start(":8000")
 }
