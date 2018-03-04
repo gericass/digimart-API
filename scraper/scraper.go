@@ -7,6 +7,7 @@ import (
 	"time"
 	"fmt"
 	"strings"
+	"net/http"
 )
 
 func (i *NewArrivalInstrument) scanName(s *goquery.Selection) error {
@@ -77,10 +78,21 @@ func scanNewInstrument(s *goquery.Selection) *NewArrivalInstrument {
 }
 
 func NewArrival() ([]*NewArrivalInstrument, error) {
-	doc, err := goquery.NewDocument("https://www.digimart.net")
+	req, err := http.NewRequest("GET", "https://www.digimart.net", nil)
 	if err != nil {
 		return nil, err
 	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0 ")
+	client := new(http.Client)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	doc, err := goquery.NewDocumentFromResponse(resp)
+	if err != nil {
+		return nil, err
+	}
+
 	var insts = make([]*NewArrivalInstrument, 0)
 	doc.Find("div.NewProductBlock").Each(func(_ int, s *goquery.Selection) {
 		s.Find("li.ProductBox").Each(func(_ int, s *goquery.Selection) {
@@ -170,7 +182,17 @@ func scanInstrument(s *goquery.Selection) *Instrument {
 func Scrape(keyword string, page int) ([]*Instrument, error) {
 	keyword = strings.Replace(keyword, " ", "+", -1)
 	url := "https://www.digimart.net/search?category12Id=359&keywordAnd=" + keyword + "&currentPage=" + fmt.Sprint(page)
-	doc, err := goquery.NewDocument(url)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Set("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.11; rv:43.0) Gecko/20100101 Firefox/43.0 ")
+	client := new(http.Client)
+	resp, err := client.Do(req)
+	if err != nil {
+		return nil, err
+	}
+	doc, err := goquery.NewDocumentFromResponse(resp)
 	if err != nil {
 		return nil, err
 	}

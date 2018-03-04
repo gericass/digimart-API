@@ -18,6 +18,10 @@ func dbMiddleware(h echo.HandlerFunc) echo.HandlerFunc {
 	}
 }
 
+func testHandler(c echo.Context) error {
+	return c.String(200,"OK")
+}
+
 func main() {
 	e := echo.New()
 	e.Use(dbMiddleware)
@@ -30,6 +34,8 @@ func main() {
 	e.GET("/user/subscribe", handler.GetSubscribeInstrumentsHandler)
 	e.POST("/user/subscribe", handler.SubscribeInstrumentHandler)
 	e.DELETE("/user/unsubscribe", handler.UnSubscribeInstrumentHandler)
+
+	e.GET("/test",testHandler)
 
 	e.Start(":8000")
 }
