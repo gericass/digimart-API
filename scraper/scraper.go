@@ -10,6 +10,18 @@ import (
 	"net/http"
 )
 
+type scraper interface {
+	scanName(*goquery.Selection) error
+	scanDescription(s *goquery.Selection) error
+	scanPrice(s *goquery.Selection) error
+	scanCondition(s *goquery.Selection) error
+	scanStatus(s *goquery.Selection) error
+	scanURL(s *goquery.Selection) error
+	scanImage(s *goquery.Selection) error
+	scanRegisterDate(s *goquery.Selection) error
+	toInstrument() *Instrument
+}
+
 func (i *NewArrivalInstrument) scanName(s *goquery.Selection) error {
 	s.Find("p.ttl").Children().First().Each(func(_ int, s *goquery.Selection) {
 		i.Name = html.UnescapeString(s.Text())
@@ -64,20 +76,21 @@ func (i *NewArrivalInstrument) scanRegisterDate(s *goquery.Selection) error {
 	return nil
 }
 
-func scanNewInstrument(s *goquery.Selection) *NewArrivalInstrument {
-	inst := &NewArrivalInstrument{}
-	inst.scanRegisterDate(s)
-	inst.scanURL(s)
-	inst.scanName(s)
-	inst.scanDescription(s)
-	inst.scanImage(s)
-	inst.scanPrice(s)
-	inst.scanCondition(s)
-	inst.scanStatus(s)
+func (i *NewArrivalInstrument) toInstrument() *Instrument {
+	inst := &Instrument{}
+	inst.RegisterDate = i.RegisterDate
+	inst.URL = i.URL
+	inst.Status = i.Status
+	inst.Condition = i.Condition
+	inst.Price = i.Price
+	inst.Category = i.Category
+	inst.Description = i.Description
+	inst.Image = i.Image
+	inst.Name = i.Name
 	return inst
 }
 
-func NewArrival() ([]*NewArrivalInstrument, error) {
+func NewArrival() ([]*Instrument, error) {
 	req, err := http.NewRequest("GET", "https://www.digimart.net", nil)
 	if err != nil {
 		return nil, err
@@ -93,16 +106,16 @@ func NewArrival() ([]*NewArrivalInstrument, error) {
 		return nil, err
 	}
 
-	var insts = make([]*NewArrivalInstrument, 0)
+	var insts = make([]*Instrument, 0)
 	doc.Find("div.NewProductBlock").Each(func(_ int, s *goquery.Selection) {
 		s.Find("li.ProductBox").Each(func(_ int, s *goquery.Selection) {
-			insts = append(insts, scanNewInstrument(s))
+			insts = append(insts, scanInstrument(s,"new"))
 		})
 	})
 	return insts, nil
 }
 
-func (i *Instrument) scanName(s *goquery.Selection) error {
+func (i *SearchInstrument) scanName(s *goquery.Selection) error {
 	s.Find("p.ttl").Children().First().Each(func(_ int, s *goquery.Selection) {
 		i.Name = html.UnescapeString(s.Text())
 
@@ -110,12 +123,12 @@ func (i *Instrument) scanName(s *goquery.Selection) error {
 	return nil
 }
 
-func (i *Instrument) scanDescription(s *goquery.Selection) error {
+func (i *SearchInstrument) scanDescription(s *goquery.Selection) error {
 	i.Description = s.Find("p.ttl").Next().Text()
 	return nil
 }
 
-func (i *Instrument) scanPrice(s *goquery.Selection) error {
+func (i *SearchInstrument) scanPrice(s *goquery.Selection) error {
 	s.Find("div.itemState").Each(func(_ int, s *goquery.Selection) {
 		s.Find("p.price").First().Children().Remove()
 		priceString := strings.Replace(s.Find("p.price").First().Text(), "¥", "", -1)
@@ -125,7 +138,7 @@ func (i *Instrument) scanPrice(s *goquery.Selection) error {
 	return nil
 }
 
-func (i *Instrument) scanCondition(s *goquery.Selection) error {
+func (i *SearchInstrument) scanCondition(s *goquery.Selection) error {
 	s.Find("div.itemState").Each(func(_ int, s *goquery.Selection) {
 		i.Condition = s.Find("p.state").Children().First().Text()
 	})
@@ -142,7 +155,7 @@ func (i *Instrument) scanStatus(s *goquery.Selection) error {
 	return nil
 }
 
-func (i *Instrument) scanURL(s *goquery.Selection) error {
+func (i *SearchInstrument) scanURL(s *goquery.Selection) error {
 	s.Find("p.ttl").Children().First().Each(func(_ int, s *goquery.Selection) {
 		url, _ := s.Attr("href")
 		i.URL = "https://www.digimart.net" + url
@@ -156,7 +169,7 @@ func (i *Instrument) scanImage(s *goquery.Selection) error {
 	return nil
 }
 
-func (i *Instrument) scanRegisterDate(s *goquery.Selection) error {
+func (i *SearchInstrument) scanRegisterDate(s *goquery.Selection) error {
 	dateStr := strings.Replace(s.Find("ul.itemDateInfo").Children().Next().Text(), "登録：", "", -1)
 	d, err := time.Parse("2006-01-02 15:04:05", dateStr)
 	if err != nil {
@@ -166,8 +179,27 @@ func (i *Instrument) scanRegisterDate(s *goquery.Selection) error {
 	return nil
 }
 
-func scanInstrument(s *goquery.Selection) *Instrument {
+func (i *SearchInstrument) toInstrument() *Instrument {
 	inst := &Instrument{}
+	inst.RegisterDate = i.RegisterDate
+	inst.URL = i.URL
+	inst.Status = i.Status
+	inst.Condition = i.Condition
+	inst.Price = i.Price
+	inst.Category = i.Category
+	inst.Description = i.Description
+	inst.Image = i.Image
+	inst.Name = i.Name
+	return inst
+}
+
+func scanInstrument(s *goquery.Selection, instType string) *Instrument {
+	var inst scraper
+	if instType == "search" {
+		inst = &SearchInstrument{}
+	} else if instType == "new" {
+		inst = &NewArrivalInstrument{}
+	}
 	inst.scanRegisterDate(s)
 	inst.scanURL(s)
 	inst.scanName(s)
@@ -176,7 +208,7 @@ func scanInstrument(s *goquery.Selection) *Instrument {
 	inst.scanPrice(s)
 	inst.scanCondition(s)
 	inst.scanStatus(s)
-	return inst
+	return inst.toInstrument()
 }
 
 func Scrape(keyword string, page int) ([]*Instrument, error) {
@@ -198,7 +230,8 @@ func Scrape(keyword string, page int) ([]*Instrument, error) {
 	}
 	var insts = make([]*Instrument, 0)
 	doc.Find("div.itemSearchBlock").Each(func(_ int, s *goquery.Selection) {
-		insts = append(insts, scanInstrument(s))
+		insts = append(insts, scanInstrument(s,"search"))
 	})
+
 	return insts, nil
 }

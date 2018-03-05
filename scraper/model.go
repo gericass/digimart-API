@@ -14,6 +14,10 @@ type Instrument struct {
 	RegisterDate time.Time `json:"registerDate"`
 }
 
+type SearchInstrument struct {
+	Instrument
+}
+
 type NewArrivalInstrument struct {
 	Instrument
 }
