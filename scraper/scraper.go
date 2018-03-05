@@ -109,7 +109,7 @@ func NewArrival() ([]*Instrument, error) {
 	var insts = make([]*Instrument, 0)
 	doc.Find("div.NewProductBlock").Each(func(_ int, s *goquery.Selection) {
 		s.Find("li.ProductBox").Each(func(_ int, s *goquery.Selection) {
-			insts = append(insts, scanInstrument(s,"new"))
+			insts = append(insts, scanInstrument(s,NewArrivalInstrument{}))
 		})
 	})
 	return insts, nil
@@ -193,11 +193,12 @@ func (i *SearchInstrument) toInstrument() *Instrument {
 	return inst
 }
 
-func scanInstrument(s *goquery.Selection, instType string) *Instrument {
+func scanInstrument(s *goquery.Selection, instType interface{}) *Instrument {
 	var inst scraper
-	if instType == "search" {
+	switch instType.(type) {
+	case SearchInstrument:
 		inst = &SearchInstrument{}
-	} else if instType == "new" {
+	case NewArrivalInstrument:
 		inst = &NewArrivalInstrument{}
 	}
 	inst.scanRegisterDate(s)
@@ -230,7 +231,7 @@ func Scrape(keyword string, page int) ([]*Instrument, error) {
 	}
 	var insts = make([]*Instrument, 0)
 	doc.Find("div.itemSearchBlock").Each(func(_ int, s *goquery.Selection) {
-		insts = append(insts, scanInstrument(s,"search"))
+		insts = append(insts, scanInstrument(s,SearchInstrument{}))
 	})
 
 	return insts, nil
